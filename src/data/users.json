@@ -1,0 +1,9 @@
+[
+  {
+    "id": "admin-user-001",
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "password": "$2b$10$jjanOUL1fe6yCjogPpZ3LOLZooBlTO/ZhECIUlU8XXCZBQXvO6fLe",
+    "createdAt": "2026-01-10T00:00:00.000Z"
+  }
+]
