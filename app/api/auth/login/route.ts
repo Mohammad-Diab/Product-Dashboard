@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { 
-  readJsonFile, 
-  setAuthToken, 
-  signJWT, 
-  UsersSchema, 
+import {
+  readJsonFile,
+  setAuthToken,
+  signJWT,
+  UsersSchema,
   LoginRequestSchema,
   formatZodError,
   type User,
@@ -21,7 +21,7 @@ type LoginResponse = {
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = await request.json();
+    const { body } = await request.json();
 
     const validation = LoginRequestSchema.safeParse(body);
     if (!validation.success) {

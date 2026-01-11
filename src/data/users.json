@@ -5,5 +5,12 @@
     "email": "admin@example.com",
     "password": "$2b$10$jjanOUL1fe6yCjogPpZ3LOLZooBlTO/ZhECIUlU8XXCZBQXvO6fLe",
     "createdAt": "2026-01-10T00:00:00.000Z"
+  },
+  {
+    "id": "90d5e6fe-1dc3-4fca-b802-cdd6b2af69f4",
+    "name": "Amera Zarefa",
+    "email": "amera.zarefa@gmail.com",
+    "password": "$2b$10$orjEOuoDXdvcy6NcT5HQyudK2EfLQ/8gJ58QeMYk3cCDeZG/v4pAm",
+    "createdAt": "2026-01-11T20:02:28.635Z"
   }
 ]

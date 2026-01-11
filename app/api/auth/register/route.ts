@@ -22,7 +22,7 @@ type RegisterResponse = {
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     try {
-        const body = await request.json();
+        const { body } = await request.json();
 
         const validation = RegisterRequestSchema.safeParse(body);
         if (!validation.success) {

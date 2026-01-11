@@ -37,7 +37,15 @@ async function request<T>(
       return undefined as T;
     }
 
-    return await response.json();
+    const json = await response.json();
+    
+    if (json && typeof json === 'object' && 'success' in json) {
+      if (json.success && 'data' in json) {
+        return json.data as T;
+      }
+    }
+    
+    return json as T;
   } catch (error) {
     handleAuthError(error);
     throw error;

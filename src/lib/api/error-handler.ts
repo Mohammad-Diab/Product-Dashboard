@@ -22,11 +22,7 @@ export function createErrorResponse(
 }
 
 export async function handleApiError(response: Response): Promise<never> {
-    let errorData: {
-        message?: string;
-        code?: string;
-        validationErrors?: Record<string, string[]>;
-    } = {};
+    let errorData: ApiResponse<never> | null = null;
 
     try {
         errorData = await response.json();
@@ -34,9 +30,13 @@ export async function handleApiError(response: Response): Promise<never> {
         // If response is not JSON, use default error message
     }
 
-    const message = errorData.message || getDefaultErrorMessage(response.status);
-    const code = errorData.code;
-    const validationErrors = errorData.validationErrors;
+    const message = errorData?.success === false && errorData.error 
+        ? errorData.error.message 
+        : getDefaultErrorMessage(response.status);
+    const code = errorData?.success === false && errorData.error ? errorData.error.code : undefined;
+    const validationErrors = errorData?.success === false && errorData.error 
+        ? errorData.error.validationErrors 
+        : undefined;
 
     throw new ApiClientError(message, response.status, code, validationErrors);
 }
@@ -64,10 +64,10 @@ export function isApiError(error: unknown): error is ApiClientError {
 
 export function handleAuthError(error: unknown): void {
     if (isApiError(error) && error.statusCode === 401) {
-        // Redirect to login or trigger logout
+        console.error('Authentication error: ', error.message);
         // TODO: Need double check this in the future
-        if (typeof window !== 'undefined') {
-            window.location.href = '/login';
-        }
+        // if (typeof window !== 'undefined') {
+        //     window.location.href = '/login';
+        // }
     }
 }

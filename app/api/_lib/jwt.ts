@@ -1,12 +1,12 @@
 import { SignJWT, jwtVerify } from 'jose';
-import { env } from '@/config/env';
+import { serverEnv } from '@/config/env';
 
 export type AuthJWTPayload = {
   sub: string;
   email: string;
 };
 
-const JWT_SECRET = new TextEncoder().encode(env.JWT_SECRET);
+const JWT_SECRET = new TextEncoder().encode(serverEnv.JWT_SECRET);
 
 const ALG = 'HS256';
 
