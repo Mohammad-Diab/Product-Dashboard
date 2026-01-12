@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { ApiResponse, ApiClientError } from './types';
 
 export function createSuccessResponse<T>(data: T): ApiResponse<T> {
@@ -38,6 +39,9 @@ export async function handleApiError(response: Response): Promise<never> {
         ? errorData.error.validationErrors 
         : undefined;
 
+    // Show toast notification for API errors
+    toast.error(message);
+
     throw new ApiClientError(message, response.status, code, validationErrors);
 }
 
@@ -64,7 +68,7 @@ export function isApiError(error: unknown): error is ApiClientError {
 
 export function handleAuthError(error: unknown): void {
     if (isApiError(error) && error.statusCode === 401) {
-        console.error('Authentication error: ', error.message);
+        toast.error('Your session has expired. Please log in again.');
         // TODO: Need double check this in the future
         // if (typeof window !== 'undefined') {
         //     window.location.href = '/login';

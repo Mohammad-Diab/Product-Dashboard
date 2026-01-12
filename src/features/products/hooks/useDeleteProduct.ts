@@ -1,6 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient, type InfiniteData } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { deleteProduct } from '../api/client';
 import { ProductsResponse } from '../types';
 
@@ -35,6 +36,9 @@ export function useDeleteProduct() {
         },
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ['products'] });
+        },
+        onSuccess: () => {
+            toast.success('Product deleted successfully!');
         },
     });
 }

@@ -10,7 +10,16 @@ type NavLinkProps = {
 
 export function NavLink({ href, children }: NavLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === href || pathname.startsWith(href);
+  
+  // Handle dashboard routes (both / and /dashboard should be active together)
+  const isDashboard = href === '/' || href === '/dashboard';
+  const isOnDashboard = pathname === '/' || pathname === '/dashboard';
+  
+  // For dashboard links, active if on either dashboard route
+  // For other links, active if exact match or starts with href/ (to avoid root path conflict)
+  const isActive = isDashboard 
+    ? isOnDashboard
+    : pathname === href || pathname.startsWith(href + '/');
 
   return (
     <Link

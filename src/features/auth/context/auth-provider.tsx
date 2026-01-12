@@ -1,6 +1,8 @@
 'use client';
 
 import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 import { AuthContext } from './auth-context';
 import {
     AuthContextValue,
@@ -9,6 +11,7 @@ import {
     User,
 } from '../types';
 import * as authApi from '../api';
+import { ROUTES, isAuthRoute } from '@/lib/routes';
 
 type AuthProviderProps = {
     children: ReactNode;
@@ -25,6 +28,8 @@ function getStatusCode(error: unknown): number | null {
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
 
     const isAuthenticated = !!user;
 
@@ -39,21 +44,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUser(null);
                 return;
             }
-            console.error('Failed to refresh session', error);
+            // Silent fail on refresh - don't show toast
         } finally {
             setIsLoading(false);
         }
     }, []);
 
     useEffect(() => {
+        // Skip user refresh on auth pages (login/register)
+        if (isAuthRoute(pathname)) {
+            setIsLoading(false);
+            return;
+        }
         refreshUser();
-    }, [refreshUser]);
+    }, [refreshUser, pathname]);
 
     const login = useCallback(async (credentials: LoginCredentials) => {
         setIsLoading(true);
         try {
             const response = await authApi.login(credentials);
             setUser(response.user);
+            toast.success('Welcome back! You have successfully logged in.');
         } finally {
             setIsLoading(false);
         }
@@ -64,6 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             const response = await authApi.register(credentials);
             setUser(response.user);
+            toast.success('Account created successfully! Welcome aboard.');
         } finally {
             setIsLoading(false);
         }
@@ -73,11 +85,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoading(true);
         try {
             await authApi.logout();
-        } finally {
             setUser(null);
+            toast.success('You have been logged out successfully.');
+            router.push(ROUTES.AUTH.LOGIN);
+        } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [router]);
 
     const value: AuthContextValue = {
         user,

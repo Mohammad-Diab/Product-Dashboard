@@ -16,6 +16,8 @@ export type { FormFieldProps } from './form-field';
 export { PageHeader } from './page-header';
 export type { PageHeaderProps } from './page-header';
 
+export { ToggleButtonGroup } from './toggle-button-group';
+
 export { Modal } from './modal';
 export type { ModalProps } from './modal';
 

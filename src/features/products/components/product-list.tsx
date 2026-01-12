@@ -17,6 +17,7 @@ type ProductListProps = {
 
 export function ProductList({ initialProducts, initialNextCursor, initialHasMore, showAll = false }: ProductListProps) {
     const observerTarget = useRef<HTMLDivElement>(null);
+    const initialShowAll = useRef(showAll);
 
     const {
         data,
@@ -27,14 +28,14 @@ export function ProductList({ initialProducts, initialNextCursor, initialHasMore
     } = useInfiniteQuery({
         queryKey: ['products', showAll],
         queryFn: ({ pageParam }: { pageParam: string | null }) => fetchProducts(pageParam, PRODUCTS_PAGE_SIZE, showAll),
-        getNextPageParam: (lastPage) => {
+        getNextPageParam: (lastPage) => { 
             return lastPage.hasMore ? lastPage.nextCursor : undefined;
         },
-        initialData: {
+        initialPageParam: null,
+        initialData: showAll === initialShowAll.current ? {
             pages: [{ items: initialProducts, nextCursor: initialNextCursor, hasMore: initialHasMore }],
             pageParams: [null],
-        },
-        initialPageParam: null,
+        } : undefined,
     });
 
     useEffect(() => {
