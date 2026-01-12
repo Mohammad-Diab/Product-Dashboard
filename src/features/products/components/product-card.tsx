@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { Product } from '../types';
 import { formatCurrency, formatDate } from '@/lib/formatters';
+import { DeleteProductButton } from './delete-product-button';
 
 type ProductCardProps = {
   product: Product;
@@ -10,7 +13,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const isActive = product.status === 'active';
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col">
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-semibold text-gray-900">{product.name}</h3>
         <span
@@ -24,20 +27,21 @@ export function ProductCard({ product }: ProductCardProps) {
         </span>
       </div>
 
-      <p className="text-gray-600 mb-4 line-clamp-2">{product.description || 'No description'}</p>
+      <p className="text-gray-600 mb-4 line-clamp-2 flex-1">{product.description || 'No description'}</p>
 
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-2xl font-bold text-gray-900">{formatCurrency(product.price)}</p>
-          <p className="text-sm text-gray-500 mt-1">Created {formatDate(product.createdAt)}</p>
-        </div>
+      <div className="mb-4">
+        <p className="text-2xl font-bold text-gray-900">{formatCurrency(product.price)}</p>
+        <p className="text-sm text-gray-500 mt-1">Created {formatDate(product.createdAt)}</p>
+      </div>
 
+      <div className="flex gap-4 justify-center">
         <Link
           href={`/products/${product.id}/edit`}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center min-w-30"
         >
           Edit
         </Link>
+        <DeleteProductButton productId={product.id} productName={product.name} />
       </div>
     </div>
   );

@@ -15,3 +15,9 @@ export type { FormFieldProps } from './form-field';
 
 export { PageHeader } from './page-header';
 export type { PageHeaderProps } from './page-header';
+
+export { Modal } from './modal';
+export type { ModalProps } from './modal';
+
+export { ConfirmModal } from './confirm-modal';
+export type { ConfirmModalProps } from './confirm-modal';
