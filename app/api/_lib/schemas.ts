@@ -5,6 +5,7 @@ export const UserSchema = z.object({
   name: z.string(),
   email: z.email(),
   password: z.string(),
+  role: z.enum(['admin', 'user']),
   createdAt: z.iso.datetime(),
 });
 
@@ -16,6 +17,7 @@ export const ProductSchema = z.object({
   description: z.string(),
   price: z.number(),
   status: z.enum(['active', 'inactive']),
+  createdBy: z.string(),
   createdAt: z.iso.datetime(),
 });
 

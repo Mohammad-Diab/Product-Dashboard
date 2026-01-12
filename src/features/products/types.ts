@@ -6,6 +6,7 @@ export type Product = {
   description: string;
   price: number;
   status: ProductStatus;
+  createdBy: string;
   createdAt: string;
 };
 
