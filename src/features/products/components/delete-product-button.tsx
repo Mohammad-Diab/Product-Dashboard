@@ -23,7 +23,7 @@ export function DeleteProductButton({ productId, productName }: DeleteProductBut
     <>
       <Button
         variant="danger"
-        className="min-w-30"
+        className=' flex-1'
         size="sm"
         onClick={() => setShowConfirm(true)}
         type="button"

@@ -21,6 +21,27 @@ export const ProductSchema = z.object({
 
 export const ProductsSchema = z.array(ProductSchema);
 
+export const OrderItemSchema = z.object({
+  productId: z.string(),
+  productName: z.string(),
+  quantity: z.number(),
+  unitPrice: z.number(),
+});
+
+export const OrderSchema = z.object({
+  id: z.string(),
+  orderNumber: z.string(),
+  customerId: z.string(),
+  status: z.enum(['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']),
+  totalAmount: z.number(),
+  currency: z.string(),
+  items: z.array(OrderItemSchema),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
+});
+
+export const OrdersSchema = z.array(OrderSchema);
+
 // Validation Schemas
 export const LoginRequestSchema = z.object({
   email: z.email('Invalid email format'),
@@ -51,9 +72,18 @@ export const UpdateProductRequestSchema = z.object({
   status: z.enum(['active', 'inactive'], { message: 'Status must be either active or inactive' }).optional(),
 });
 
+export const UpdateOrderRequestSchema = z.object({
+  status: z.enum(['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'], { 
+    message: 'Status must be pending, confirmed, shipped, delivered, or cancelled' 
+  }),
+});
+
 export type User = z.infer<typeof UserSchema>;
 export type Product = z.infer<typeof ProductSchema>;
+export type Order = z.infer<typeof OrderSchema>;
+export type OrderItem = z.infer<typeof OrderItemSchema>;
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 export type RegisterRequest = z.infer<typeof RegisterRequestSchema>;
 export type CreateProductRequest = z.infer<typeof CreateProductRequestSchema>;
 export type UpdateProductRequest = z.infer<typeof UpdateProductRequestSchema>;
+export type UpdateOrderRequest = z.infer<typeof UpdateOrderRequestSchema>;

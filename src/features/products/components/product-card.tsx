@@ -34,10 +34,10 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="text-sm text-gray-500 mt-1">Created {formatDate(product.createdAt)}</p>
       </div>
 
-      <div className="flex gap-4 justify-center">
+      <div className="flex gap-4">
         <Link
           href={`/products/${product.id}/edit`}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center min-w-30"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center flex-1"
         >
           Edit
         </Link>

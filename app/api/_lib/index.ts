@@ -8,16 +8,23 @@ export {
   UsersSchema, 
   ProductSchema, 
   ProductsSchema,
+  OrderSchema,
+  OrdersSchema,
+  OrderItemSchema,
   LoginRequestSchema,
   RegisterRequestSchema,
   CreateProductRequestSchema,
   UpdateProductRequestSchema,
+  UpdateOrderRequestSchema,
 } from './schemas';
 export type { 
   User, 
   Product,
+  Order,
+  OrderItem,
   LoginRequest,
   RegisterRequest,
   CreateProductRequest,
   UpdateProductRequest,
+  UpdateOrderRequest,
 } from './schemas';
