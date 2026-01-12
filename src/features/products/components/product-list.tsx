@@ -6,6 +6,7 @@ import { Product } from '../types';
 import { ProductCard } from './product-card';
 import { fetchProducts } from '../api/client';
 import { PRODUCTS_PAGE_SIZE } from '../constants';
+import { LoadingSpinner } from '@/components';
 
 type ProductListProps = {
     initialProducts: Product[];
@@ -61,7 +62,7 @@ export function ProductList({ initialProducts, initialNextCursor, initialHasMore
     if (isLoading) {
         return (
             <div className="flex justify-center items-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <LoadingSpinner size="lg" />
             </div>
         );
     }
@@ -84,9 +85,7 @@ export function ProductList({ initialProducts, initialNextCursor, initialHasMore
 
             {hasNextPage && (
                 <div ref={observerTarget} className="flex justify-center items-center py-8">
-                    {isFetchingNextPage && (
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                    )}
+                    {isFetchingNextPage && <LoadingSpinner />}
                 </div>
             )}
         </div>

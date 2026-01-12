@@ -21,3 +21,10 @@ export type { ModalProps } from './modal';
 
 export { ConfirmModal } from './confirm-modal';
 export type { ConfirmModalProps } from './confirm-modal';
+
+export { ErrorMessage } from './error-message';
+export type { ErrorMessageProps } from './error-message';
+
+export { LoadingSpinner } from './loading-spinner';
+export type { LoadingSpinnerProps } from './loading-spinner';
+

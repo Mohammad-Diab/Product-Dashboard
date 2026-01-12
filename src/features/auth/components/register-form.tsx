@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { registerSchema, RegisterFormData } from '../schemas';
 import { useAuth } from '../hooks/use-auth';
-import { Button, Input, FormField } from '@/components';
+import { Button, Input, FormField, ErrorMessage } from '@/components';
 
 export function RegisterForm() {
   const router = useRouter();
@@ -35,11 +35,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {serverError && (
-        <div className="p-3 rounded-md bg-red-50 border border-red-200">
-          <p className="text-sm text-red-600">{serverError}</p>
-        </div>
-      )}
+      <ErrorMessage message={serverError} />
 
       <FormField
         label="Name"

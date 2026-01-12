@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { productSchema, ProductFormData } from '../schemas';
-import { Button, Input, Textarea, Select, FormField } from '@/components';
+import { Button, Input, Textarea, Select, FormField, ErrorMessage } from '@/components';
 import { Product } from '../types';
 
 type ProductFormProps = {
@@ -37,11 +37,7 @@ export function ProductForm({ initialData, onSubmit, isSubmitting, serverError }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-2xl">
-            {serverError && (
-                <div className="p-3 rounded-md bg-red-50 border border-red-200">
-                    <p className="text-sm text-red-600">{serverError}</p>
-                </div>
-            )}
+            <ErrorMessage message={serverError} />
 
             <FormField
                 label="Name"
