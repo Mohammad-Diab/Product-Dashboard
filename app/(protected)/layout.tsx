@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { ProtectedNav } from '@/features/auth/components';
 import { Navigation } from '@/components/layout';
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {

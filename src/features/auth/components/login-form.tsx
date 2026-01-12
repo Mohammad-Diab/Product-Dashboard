@@ -25,7 +25,7 @@ export function LoginForm() {
     try {
       setServerError('');
       await login(data);
-      router.push('/dashboard');
+      router.push('/');
     } catch (error: any) {
       const message =
         error?.message || 'Login failed. Please check your credentials.';

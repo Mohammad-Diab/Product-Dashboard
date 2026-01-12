@@ -1,7 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import { PageHeader } from '@/components';
 
-export default function DashboardPage() {
+type DashboardViewProps = {
+  totalProducts: number;
+  activeProducts: number;
+  inactiveProducts: number;
+};
+
+export function DashboardView({ totalProducts, activeProducts, inactiveProducts }: DashboardViewProps) {
   return (
     <div className="space-y-6">
       <PageHeader
@@ -14,21 +22,21 @@ export default function DashboardPage() {
           <h3 className="text-lg font-semibold text-gray-900">
             Total Products
           </h3>
-          <p className="mt-2 text-3xl font-bold text-blue-600">0</p>
+          <p className="mt-2 text-3xl font-bold text-blue-600">{totalProducts}</p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-900">
             Active Products
           </h3>
-          <p className="mt-2 text-3xl font-bold text-green-600">0</p>
+          <p className="mt-2 text-3xl font-bold text-green-600">{activeProducts}</p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-900">
             Inactive Products
           </h3>
-          <p className="mt-2 text-3xl font-bold text-gray-600">0</p>
+          <p className="mt-2 text-3xl font-bold text-gray-600">{inactiveProducts}</p>
         </div>
       </div>
 
@@ -44,7 +52,11 @@ export default function DashboardPage() {
             </Link>
           </p>
           <p className="text-gray-600">
-            • Create new products to expand your catalog
+            •{' '}
+            <Link href="/products/new" className="text-blue-600 hover:text-blue-800 font-medium underline">
+              Create new products
+            </Link>
+            {' '}to expand your catalog
           </p>
           <p className="text-gray-600">
             • Update product details and pricing
