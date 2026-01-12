@@ -1,14 +1,13 @@
 import Link from 'next/link';
+import { PageHeader } from '@/components';
 
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Product Management</h1>
-        <p className="mt-2 text-gray-600">
-          Welcome to your product management dashboard
-        </p>
-      </div>
+      <PageHeader
+        title="Product Management"
+        description="Welcome to your product management dashboard"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
