@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { env } from '@/config/env';
+import { env, serverEnv } from '@/config/env';
 import { ApiRequestOptions } from './types';
 import { handleApiError } from './error-handler';
 
@@ -9,7 +9,7 @@ async function request<T>(
 ): Promise<T> {
   const { method = 'GET', body, headers = {}, cache = 'no-store', next } = options;
 
-  const url = `${env.API_BASE_URL}${endpoint}`;
+  const url = `${serverEnv.API_BASE_URL}${endpoint}`;
 
   // Get auth token from cookies
   const cookieStore = await cookies();
@@ -19,7 +19,7 @@ async function request<T>(
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...(authToken && { Authorization: `Bearer ${authToken}` }),
+      ...(authToken && { Cookie: `${env.AUTH_COOKIE_NAME}=${authToken}` }),
       ...headers,
     },
     cache,
@@ -40,7 +40,15 @@ async function request<T>(
     return undefined as T;
   }
 
-  return await response.json();
+  const json = await response.json();
+  
+  if (json && typeof json === 'object' && 'success' in json) {
+    if (json.success && 'data' in json) {
+      return json.data as T;
+    }
+  }
+  
+  return json as T;
 }
 
 export const apiServer = {

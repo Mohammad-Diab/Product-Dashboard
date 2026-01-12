@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
@@ -37,7 +39,10 @@ export default function DashboardPage() {
         </h2>
         <div className="space-y-3">
           <p className="text-gray-600">
-            • View and manage your products from the products page
+            • View and manage your products from the{' '}
+            <Link href="/products" className="text-blue-600 hover:text-blue-800 font-medium underline">
+              products page
+            </Link>
           </p>
           <p className="text-gray-600">
             • Create new products to expand your catalog
