@@ -12,9 +12,10 @@ type ProductListProps = {
     initialProducts: Product[];
     initialNextCursor: string | null;
     initialHasMore: boolean;
+    showAll?: boolean;
 };
 
-export function ProductList({ initialProducts, initialNextCursor, initialHasMore }: ProductListProps) {
+export function ProductList({ initialProducts, initialNextCursor, initialHasMore, showAll = false }: ProductListProps) {
     const observerTarget = useRef<HTMLDivElement>(null);
 
     const {
@@ -24,8 +25,8 @@ export function ProductList({ initialProducts, initialNextCursor, initialHasMore
         isFetchingNextPage,
         isLoading,
     } = useInfiniteQuery({
-        queryKey: ['products'],
-        queryFn: ({ pageParam }: { pageParam: string | null }) => fetchProducts(pageParam, PRODUCTS_PAGE_SIZE),
+        queryKey: ['products', showAll],
+        queryFn: ({ pageParam }: { pageParam: string | null }) => fetchProducts(pageParam, PRODUCTS_PAGE_SIZE, showAll),
         getNextPageParam: (lastPage) => {
             return lastPage.hasMore ? lastPage.nextCursor : undefined;
         },

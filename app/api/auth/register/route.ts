@@ -17,6 +17,7 @@ type RegisterResponse = {
         id: string;
         name: string;
         email: string;
+        role: 'admin' | 'user';
     };
 };
 
@@ -63,9 +64,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             name,
             email,
             password: hashedPassword,
+            role: 'user',
         });
 
-        const token = await signJWT({ sub: newUser.id, email: newUser.email });
+        const token = await signJWT({ sub: newUser.id, email: newUser.email, role: newUser.role });
 
         await setAuthToken(token);
 
@@ -74,6 +76,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 id: newUser.id,
                 name: newUser.name,
                 email: newUser.email,
+                role: newUser.role,
             },
         };
 

@@ -94,6 +94,7 @@ export async function PUT(
 
         const { name, description, price, status } = validation.data;
 
+        const payload = auth.payload as { sub: string; email: string; role?: string };
         const products = await readJsonFile<Product>('products.json', ProductsSchema);
         const productIndex = products.findIndex((p) => p.id === id);
 
@@ -108,6 +109,21 @@ export async function PUT(
                     },
                 },
                 { status: 404 }
+            );
+        }
+
+        // Check ownership for regular users
+        if (payload.role !== 'admin' && products[productIndex].createdBy !== payload.sub) {
+            return NextResponse.json<ApiResponse<never>>(
+                {
+                    success: false,
+                    error: {
+                        message: 'Forbidden: You can only update your own products',
+                        statusCode: 403,
+                        code: 'FORBIDDEN',
+                    },
+                },
+                { status: 403 }
             );
         }
 
@@ -156,6 +172,8 @@ export async function DELETE(
         }
 
         const { id } = await context.params;
+
+        const payload = auth.payload as { sub: string; email: string; role?: string };
         const products = await readJsonFile<Product>('products.json', ProductsSchema);
         const productIndex = products.findIndex((p) => p.id === id);
 
@@ -170,6 +188,21 @@ export async function DELETE(
                     },
                 },
                 { status: 404 }
+            );
+        }
+
+        // Check ownership for regular users
+        if (payload.role !== 'admin' && products[productIndex].createdBy !== payload.sub) {
+            return NextResponse.json<ApiResponse<never>>(
+                {
+                    success: false,
+                    error: {
+                        message: 'Forbidden: You can only delete your own products',
+                        statusCode: 403,
+                        code: 'FORBIDDEN',
+                    },
+                },
+                { status: 403 }
             );
         }
 

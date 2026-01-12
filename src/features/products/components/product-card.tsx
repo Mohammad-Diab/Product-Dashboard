@@ -4,13 +4,18 @@ import Link from 'next/link';
 import { Product } from '../types';
 import { formatCurrency, formatDate } from '@/lib/formatters';
 import { DeleteProductButton } from './delete-product-button';
+import { useAuth, useRole } from '@/features/auth';
 
 type ProductCardProps = {
   product: Product;
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { user } = useAuth();
+  const { isAdmin } = useRole();
   const isActive = product.status === 'active';
+
+  const canManage = isAdmin || product.createdBy === user?.id;
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col">
@@ -34,15 +39,17 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="text-sm text-gray-500 mt-1">Created {formatDate(product.createdAt)}</p>
       </div>
 
-      <div className="flex gap-4">
-        <Link
-          href={`/products/${product.id}/edit`}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center flex-1"
-        >
-          Edit
-        </Link>
-        <DeleteProductButton productId={product.id} productName={product.name} />
-      </div>
+      {canManage && (
+        <div className="flex gap-4">
+          <Link
+            href={`/products/${product.id}/edit`}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center flex-1"
+          >
+            Edit
+          </Link>
+          <DeleteProductButton productId={product.id} productName={product.name} />
+        </div>
+      )}
     </div>
   );
 }

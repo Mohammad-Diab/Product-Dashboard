@@ -3,11 +3,14 @@
 import { apiClient } from '@/lib/api/client';
 import { ProductsResponse, Product, CreateProductInput, UpdateProductInput } from '../types';
 
-export async function fetchProducts(cursor?: string | null, limit: number = 10): Promise<ProductsResponse> {
+export async function fetchProducts(cursor?: string | null, limit: number = 10, showAll: boolean = false): Promise<ProductsResponse> {
     const params = new URLSearchParams();
     params.append('limit', limit.toString());
     if (cursor) {
         params.append('cursor', cursor);
+    }
+    if (showAll) {
+        params.append('showAll', 'true');
     }
 
     return apiClient.get<ProductsResponse>(`/products?${params.toString()}`);

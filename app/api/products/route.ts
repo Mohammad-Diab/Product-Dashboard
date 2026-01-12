@@ -17,9 +17,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
             return auth.response;
         }
 
-        const products = await readJsonFile<Product>('products.json', ProductsSchema);
+        const payload = auth.payload as { sub: string; email: string; role?: string };
+        let products = await readJsonFile<Product>('products.json', ProductsSchema);
 
         const searchParams = request.nextUrl.searchParams;
+        const showAll = searchParams.get('showAll') === 'true';
+
+        // Filter products based on user role
+        if (payload.role !== 'admin' || !showAll) {
+            products = products.filter(p => p.createdBy === payload.sub);
+        }
+
         const cursor = searchParams.get('cursor');
         const limit = parseInt(searchParams.get('limit') || '10');
 
@@ -88,11 +96,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
         const { name, description, price, status } = validation.data;
 
+        const payload = auth.payload as { sub: string; email: string };
+
         const newProduct = await addToJsonFile<Product>('products.json', ProductsSchema, {
             name,
             description: description || '',
             price,
             status,
+            createdBy: payload.sub,
         });
 
         return NextResponse.json<ApiResponse<Product>>(

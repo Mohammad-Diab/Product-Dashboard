@@ -4,3 +4,5 @@ export { ProductForm } from './ProductForm';
 export { NewProduct } from './new-product';
 export { EditProduct } from './edit-product';
 export { DeleteProductButton } from './delete-product-button';
+export { ProductsClientPage } from './products-client-page';
+

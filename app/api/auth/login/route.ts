@@ -68,7 +68,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       );
     }
 
-    const token = await signJWT({ sub: user.id, email: user.email });
+    const token = await signJWT({ sub: user.id, email: user.email, role: user.role });
 
     await setAuthToken(token);
 

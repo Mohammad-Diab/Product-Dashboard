@@ -4,6 +4,7 @@ import { serverEnv } from '@/config/env';
 export type AuthJWTPayload = {
   sub: string;
   email: string;
+  role: 'admin' | 'user';
 };
 
 const JWT_SECRET = new TextEncoder().encode(serverEnv.JWT_SECRET);

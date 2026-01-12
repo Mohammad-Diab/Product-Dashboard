@@ -6,6 +6,7 @@ type MeResponse = {
   id: string;
   name: string;
   email: string;
+  role: 'admin' | 'user';
 };
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
@@ -38,6 +39,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       id: user.id,
       name: user.name,
       email: user.email,
+      role: user.role,
     };
 
     return NextResponse.json<ApiResponse<MeResponse>>(
