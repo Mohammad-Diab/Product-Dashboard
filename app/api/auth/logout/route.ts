@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { clearAuthToken } from '../../_lib';
+import { clearAuthToken } from '@/app/api/_lib';
 import type { ApiResponse } from '@/lib/api/types';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readJsonFile, authenticateRequest, UsersSchema, type User } from '../../_lib';
+import { readJsonFile, authenticateRequest, UsersSchema, type User } from '@/app/api/_lib';
 import type { ApiResponse } from '@/lib/api/types';
 
 type MeResponse = {

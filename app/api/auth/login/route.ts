@@ -8,7 +8,7 @@ import {
   LoginRequestSchema,
   formatZodError,
   type User,
-} from '../../_lib';
+} from '@/app/api/_lib';
 import type { ApiResponse } from '@/lib/api/types';
 
 type LoginResponse = {

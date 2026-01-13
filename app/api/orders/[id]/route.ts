@@ -7,7 +7,7 @@ import {
     UpdateOrderRequestSchema,
     formatZodError,
     type Order,
-} from '../../_lib';
+} from '@/app/api/_lib';
 import type { ApiResponse } from '@/lib/api/types';
 
 type RouteContext = {
