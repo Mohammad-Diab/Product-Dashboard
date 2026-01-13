@@ -158,6 +158,18 @@ import { apiClient } from '@/lib/api/client';
 
 ---
 
+## List Navigation: Infinite Scrolling
+
+**Decision:** Use infinite scrolling instead of traditional numeric pagination.
+
+**Reasoning:**
+- Provides a seamless flow for browsing large lists of products and orders without interruption.
+- More suitable for exploration-based interfaces (like product catalogs) compared to precise record location.
+- Leverages `useInfiniteQuery` to efficiently cache pages and prevent layout shifts.
+- Eliminates small tap targets (page numbers) which are difficult to use on touch devices.
+
+---
+
 ## TypeScript: Strict Mode Everywhere
 
 **Decision:** Enable all strict TypeScript options.
