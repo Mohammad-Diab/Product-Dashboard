@@ -217,6 +217,22 @@ import { apiClient } from '@/lib/api/client';
 - Accessible (ARIA labels)
 - Alternative rejected: react-toastify (3x larger)
 
+### Testing
+
+**Jest:** Test runner and assertion library
+
+**Decision:** Use Jest as the primary testing framework instead of alternatives like Vitest, Mocha, or Jasmine.
+
+**Reasoning:**
+- Industry standard for React/Next.js applications (most mature ecosystem)
+- Zero-configuration setup with Next.js (official recommendation)
+- Built-in mocking, assertion utilities, and code coverage
+- Fast parallel test execution with watch mode
+- Excellent TypeScript support out of the box
+- Large community and extensive documentation
+- I'm familiar with Jest (faster development, fewer issues)
+- Alternative rejected: Vitest (faster but newer, smaller ecosystem, potential compatibility issues)
+
 ---
 
 ## Summary
