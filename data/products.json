@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f71d31de-379e-41a8-8baf-afa8f51b2160",
+    "name": "ABC Admin",
+    "description": "BB AA",
+    "price": 10,
+    "status": "active",
+    "createdBy": "a12d0565-da83-4e3a-b23f-e1056c2360eb",
+    "createdAt": "2026-01-13T04:29:03.582Z"
+  },
+  {
+    "id": "f74168da-a352-42e0-80b7-2e85aa5c1ba7",
+    "name": "BCDA",
+    "description": "DD",
+    "price": 80.8,
+    "status": "inactive",
+    "createdBy": "a12d0565-da83-4e3a-b23f-e1056c2360eb",
+    "createdAt": "2026-01-13T04:32:37.144Z"
+  },
+  {
+    "id": "ed5de612-38cd-494e-b422-d3d4d12094f5",
+    "name": "sxscasva",
+    "description": "vadvavas",
+    "price": 23,
+    "status": "active",
+    "createdBy": "12383f1e-2eb7-490f-b2c3-cec77f94b1b2",
+    "createdAt": "2026-01-13T04:56:45.177Z"
+  },
+  {
+    "id": "571803d2-11c7-4924-ab2b-14a106d09ef2",
+    "name": "Mohammad Diab",
+    "description": "kjojoi",
+    "price": 5,
+    "status": "inactive",
+    "createdBy": "355f3eb4-0836-4064-8f82-fe5691e1a296",
+    "createdAt": "2026-01-13T10:00:12.632Z"
+  }
+]
