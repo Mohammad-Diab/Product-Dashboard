@@ -31,16 +31,17 @@ export async function handleApiError(response: Response): Promise<never> {
         // If response is not JSON, use default error message
     }
 
-    const message = errorData?.success === false && errorData.error 
-        ? errorData.error.message 
+    const message = errorData?.success === false && errorData.error
+        ? errorData.error.message
         : getDefaultErrorMessage(response.status);
     const code = errorData?.success === false && errorData.error ? errorData.error.code : undefined;
-    const validationErrors = errorData?.success === false && errorData.error 
-        ? errorData.error.validationErrors 
+    const validationErrors = errorData?.success === false && errorData.error
+        ? errorData.error.validationErrors
         : undefined;
 
     // Show toast notification for API errors
-    toast.error(message);
+    if (toast && typeof toast.error === 'function')
+        toast.error(message);
 
     throw new ApiClientError(message, response.status, code, validationErrors);
 }

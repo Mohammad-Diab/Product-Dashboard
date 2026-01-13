@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUpdateOrderStatus } from '../hooks';
 import { updateOrderStatusSchema, type UpdateOrderStatusInput } from '../schemas';
-import { OrderStatus } from '../types';
+import { OrderStatus, Order } from '../types';
 import { ORDER_STATUS_LABELS } from '../constants';
 import { Button, FormField, Select, ErrorMessage } from '@/components';
 import { getErrorMessage } from '@/lib/get-error-message';
@@ -13,7 +13,8 @@ import { getErrorMessage } from '@/lib/get-error-message';
 type UpdateOrderStatusProps = {
     orderId: string;
     currentStatus: OrderStatus;
-    onSuccess?: () => void;
+    onSuccess: (updatedOrder: Order) => void;
+    onCancel: () => void;
 };
 
 const statusOptions: { value: OrderStatus; label: string }[] = [
@@ -24,7 +25,7 @@ const statusOptions: { value: OrderStatus; label: string }[] = [
     { value: 'cancelled', label: ORDER_STATUS_LABELS.cancelled },
 ];
 
-export function UpdateOrderStatus({ orderId, currentStatus, onSuccess }: UpdateOrderStatusProps) {
+export function UpdateOrderStatus({ orderId, currentStatus, onSuccess, onCancel }: UpdateOrderStatusProps) {
     const [error, setError] = useState<string | null>(null);
     const { mutate, isPending } = useUpdateOrderStatus();
     const isDelivered = currentStatus === 'delivered';
@@ -48,8 +49,8 @@ export function UpdateOrderStatus({ orderId, currentStatus, onSuccess }: UpdateO
         mutate(
             { id: orderId, data },
             {
-                onSuccess: () => {
-                    onSuccess?.();
+                onSuccess: (updatedOrder) => {
+                    onSuccess?.(updatedOrder);
                 },
                 onError: (err) => {
                     setError(getErrorMessage(err));
@@ -81,7 +82,7 @@ export function UpdateOrderStatus({ orderId, currentStatus, onSuccess }: UpdateO
                 <Button
                     variant="secondary"
                     size="md"
-                    onClick={onSuccess}
+                    onClick={onCancel}
                     disabled={isPending}
                     type="button"
                 >

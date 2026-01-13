@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 import { PageHeader } from '@/components';
+import { useAuth } from '@/features/auth';
 
 type DashboardViewProps = {
   totalProducts: number;
@@ -10,6 +11,7 @@ type DashboardViewProps = {
 };
 
 export function DashboardView({ totalProducts, activeProducts, inactiveProducts }: DashboardViewProps) {
+  const { user } = useAuth();
   return (
     <div className="space-y-6">
       <PageHeader
@@ -59,8 +61,19 @@ export function DashboardView({ totalProducts, activeProducts, inactiveProducts 
             {' '}to expand your catalog
           </p>
           <p className="text-gray-600">
-            • Update product details and pricing
+            •{' '}
+            <Link href="/products" className="text-blue-600 hover:text-blue-800 font-medium underline">
+              Update product details and pricing
+            </Link>
           </p>
+          {user?.role === 'admin' && (
+            <p className="text-gray-600">
+              •{' '}
+              <Link href="/orders" className="text-blue-600 hover:text-blue-800 font-medium underline">
+                View and manage orders
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </div>

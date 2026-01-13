@@ -11,7 +11,8 @@ type OrderDetailViewProps = {
     order: Order;
 };
 
-export function OrderDetailView({ order }: OrderDetailViewProps) {
+export function OrderDetailView({ order: initialOrder }: OrderDetailViewProps) {
+    const [order, setOrder] = useState(initialOrder);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const statusColor = ORDER_STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-800';
     const statusLabel = ORDER_STATUS_LABELS[order.status] || order.status;
@@ -132,7 +133,11 @@ export function OrderDetailView({ order }: OrderDetailViewProps) {
                 <UpdateOrderStatus
                     orderId={order.id}
                     currentStatus={order.status}
-                    onSuccess={() => {
+                    onSuccess={(updatedOrder) => {
+                        setOrder(updatedOrder);
+                        setIsModalOpen(false);
+                    }}
+                    onCancel={() => {
                         setIsModalOpen(false);
                     }}
                 />

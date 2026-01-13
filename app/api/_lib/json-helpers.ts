@@ -3,7 +3,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { z } from 'zod';
 
-const DATA_DIR = path.join(process.cwd(), 'src', 'data');
+const DATA_DIR = path.join(process.cwd(), 'data');
 
 export async function readJsonFile<T>(
   filename: string,

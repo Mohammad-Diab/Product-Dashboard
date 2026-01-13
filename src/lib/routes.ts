@@ -11,6 +11,7 @@ export const ROUTES = {
   },
   PUBLIC: {
     HOME: '/',
+    UNAUTHORIZED: '/unauthorized',
   },
 } as const;
 

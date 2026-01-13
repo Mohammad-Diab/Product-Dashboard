@@ -27,11 +27,26 @@ export async function GET(
             return auth.response;
         }
 
+        const payload = auth.payload as { sub: string; email: string; role?: string };
         const { id } = await context.params;
         const products = await readJsonFile<Product>('products.json', ProductsSchema);
         const product = products.find((p) => p.id === id);
 
         if (!product) {
+            return NextResponse.json<ApiResponse<never>>(
+                {
+                    success: false,
+                    error: {
+                        message: 'Product not found',
+                        statusCode: 404,
+                        code: 'NOT_FOUND',
+                    },
+                },
+                { status: 404 }
+            );
+        }
+
+        if (payload.role !== 'admin' && product.createdBy !== payload.sub) {
             return NextResponse.json<ApiResponse<never>>(
                 {
                     success: false,

@@ -61,14 +61,14 @@ export const RegisterRequestSchema = z.object({
 });
 
 export const CreateProductRequestSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
+  name: z.string().min(3, 'Name must be at least 3 characters').max(50, 'Name must not exceed 50 characters'),
   description: z.string().max(500, 'Description must not exceed 500 characters').optional().default(''),
   price: z.number().positive('Price must be a positive number'),
   status: z.enum(['active', 'inactive'], { message: 'Status must be either active or inactive' }),
 });
 
 export const UpdateProductRequestSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters').optional(),
+  name: z.string().min(3, 'Name must be at least 3 characters').max(50, 'Name must not exceed 50 characters').optional(),
   description: z.string().max(500, 'Description must not exceed 500 characters').optional(),
   price: z.number().positive('Price must be a positive number').optional(),
   status: z.enum(['active', 'inactive'], { message: 'Status must be either active or inactive' }).optional(),

@@ -32,7 +32,8 @@ export async function middleware(request: NextRequest) {
         if (pathname.startsWith('/orders') && payload) {
             const role = payload.role;
             if (role !== 'admin') {
-                return NextResponse.redirect(new URL(ROUTES.PROTECTED.DASHBOARD, request.url));
+                const unauthorizedUrl = new URL(ROUTES.PUBLIC.UNAUTHORIZED, request.url);
+                return NextResponse.rewrite(unauthorizedUrl);
             }
         }
     }
