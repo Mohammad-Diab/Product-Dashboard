@@ -89,7 +89,7 @@ describe('RegisterForm', () => {
       await user.click(screen.getByRole('button', { name: /register/i }));
 
       await waitFor(() => {
-        expect(screen.getByText(/name must be at least 3 characters/i)).toBeInTheDocument();
+        expect(screen.getByText(/name is required/i)).toBeInTheDocument();
       });
     });
 
@@ -467,7 +467,7 @@ describe('RegisterForm', () => {
       await user.click(screen.getByRole('button', { name: /register/i }));
 
       await waitFor(() => {
-        expect(screen.getByText(/name must be at least 3 characters/i)).toBeInTheDocument();
+        expect(screen.getByText(/name is required/i)).toBeInTheDocument();
         expect(screen.getByText(/invalid email format/i)).toBeInTheDocument();
       });
 

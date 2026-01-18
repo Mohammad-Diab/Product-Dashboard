@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DeleteProductButton } from '@/features/products/components';
 import { useDeleteProduct } from '@/features/products/hooks';
@@ -328,7 +328,9 @@ describe('DeleteProductButton', () => {
       expect(mockMutate).toHaveBeenCalledWith('prod-789', expect.any(Object));
 
       // Simulate successful deletion
-      onSuccessCallback?.();
+      act(() => {
+        onSuccessCallback?.();
+      });
 
       // Verify modal closed
       await waitFor(() => {
