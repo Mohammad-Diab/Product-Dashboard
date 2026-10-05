@@ -15,30 +15,25 @@ Quick setup guide for developers.
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/Watermelon-Market/frontend-challenge-mohammad-diab.git
+git clone https://github.com/Mohammad-Diab/Product-Dashboard.git
 ```
 
 2. **Navigate to project directory:**
 ```bash
-cd frontend-challenge-mohammad-diab
+cd Product-Dashboard
 ```
 
-3. **Checkout development branch:**
-```bash
-git checkout development
-```
-
-4. **Install dependencies:**
+3. **Install dependencies:**
 ```bash
 npm install
 ```
 
-5. **Setup environment variables:**
+4. **Setup environment variables:**
 ```bash
 cp .env.example .env.local
 ```
 
-6. **Verify mock data:**
+5. **Verify mock data:**
 Mock data is pre-configured in `data/` directory (users, products, orders). See [Mock Data](#mock-data) section for credentials and examples.
 
 ---
